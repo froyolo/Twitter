@@ -27,18 +27,46 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.dataSource = self
         tableView.delegate = self
+
+        // Pull to refresh initialization/binding
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
         
-        // Can't set return type because it takes time to fetch from server.  Must be done asynchronously
+        // Load home timeline
         TwitterService.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
             
-         }, failure: { (error: Error) in
+        }, failure: { (error: Error) in
             print(error.localizedDescription)
-         })
-        
+        })
         
     }
+
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        
+        // ... Create the URLRequest `myRequest` ...
+        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
+        let request = URLRequest(url: url!)
+        
+        // Configure session so that completion handler is executed on main UI thread
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            TwitterService.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                refreshControl.endRefreshing()
+                
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+            
+        }
+        task.resume()
+    }
+
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count

@@ -1,5 +1,5 @@
 # Project 3 - *Twitter*
-sad
+
 **Name of your app** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
 Time spent: **X** hours spent in total
