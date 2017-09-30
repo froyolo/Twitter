@@ -9,10 +9,12 @@
 import UIKit
 
 class Tweet: NSObject {
+    var id: String?
     var text: String?
     var timestamp: Date?
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
+    var favorited: Bool = false
     var user: User! // author
 
     init(dictionary: [String:Any]) {
@@ -23,6 +25,9 @@ class Tweet: NSObject {
         // retweetCount = dictionary["retweet_count"] as! Int // The ! is slightly dangerous because if not exist so will crash.  Can do below instead
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
+        id = dictionary["id_str"] as? String
+        favorited = dictionary["favorited"] as? Bool ?? false
+        
         
         let timestampString = dictionary["created_at"] as? String
         if let timestampString = timestampString {

@@ -15,7 +15,11 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
     
+    let favoritedImage = UIImage(named: "hearted")
+    let unfavoritedImage = UIImage(named: "unhearted")
+
     var tweet: Tweet! {
         didSet{
             // Only update labels if the outlets exist
@@ -25,6 +29,16 @@ class TweetDetailViewController: UIViewController {
         }
     }
     
+
+    @IBAction func favoriteTapped(_ sender: UIButton) {
+        TwitterService.sharedInstance?.favoritedTweet(id: tweet.id!, success: { () in
+            self.favoriteButton.setBackgroundImage(self.favoritedImage, for: UIControlState.normal)
+        }, failure: { (error: Error) in
+            print(error.localizedDescription)
+        })
+    }
+    
+    
     func updateLabels() {
         screennameLabel.text = tweet.user?.screenname
         nameLabel.text = tweet.user?.name
@@ -33,6 +47,12 @@ class TweetDetailViewController: UIViewController {
         
         if let profileImageURL = tweet.user?.profileUrl {
             profileImage.setImageWith(profileImageURL)
+        }
+        
+        if tweet.favorited {
+            self.favoriteButton.setBackgroundImage(favoritedImage, for: UIControlState.normal)
+        } else {
+            self.favoriteButton.setBackgroundImage(unfavoritedImage, for: UIControlState.normal)
         }
     }
     

@@ -86,11 +86,11 @@ class TwitterService: BDBOAuth1SessionManager {
     // v2 had 
     // func hometimeline(params: Dictionary?, completion:slkdfsldkjfsld, error: alskdjalskjdf)
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        get("1.1/statuses/home_timeline.json?count=20", parameters: nil, progress: nil,
+        let params: [String:Any] = ["count" : 20]
+        get("1.1/statuses/home_timeline.json", parameters: params, progress: nil,
             success: { (task: URLSessionDataTask, response: Any?) in
                 
             let dictionaries = response as! [[String: Any]]
-            print(response!)
             let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries) // Can call function cuz it's a class function
             success(tweets) // Give it array of tweets, and cam run the code have   
             
@@ -98,6 +98,7 @@ class TwitterService: BDBOAuth1SessionManager {
             failure((error)!)
         })
     }
+    
     
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error)->()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -117,6 +118,18 @@ class TwitterService: BDBOAuth1SessionManager {
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
             success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    func favoritedTweet(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let params: [String:Any] = ["id" : id]
+        post("1.1/favorites/create.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            print(response)
+//            let tweetDictionary = response as! [String: Any]
+//            let tweet = Tweet(dictionary: tweetDictionary)
+            success()
         }) { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         }

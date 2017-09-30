@@ -78,6 +78,11 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         cell.tweet = tweets[indexPath.row]
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated:true)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
