@@ -34,6 +34,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.insertSubview(refreshControl, at: 0)
         
         // Load home timeline
+        self.getHomeTimelines()
+        
+    }
+    
+    // Perform the search.
+    fileprivate func getHomeTimelines() {
+        
         TwitterService.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
@@ -53,15 +60,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         // Configure session so that completion handler is executed on main UI thread
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            TwitterService.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-                self.tweets = tweets
-                self.tableView.reloadData()
-                refreshControl.endRefreshing()
-                
-            }, failure: { (error: Error) in
-                print(error.localizedDescription)
-            })
             
+            self.getHomeTimelines()
+            refreshControl.endRefreshing()
         }
         task.resume()
     }
@@ -82,27 +83,26 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
- let vc = segue.destination as! PhotoDetailsViewController // Gets a reference to the PhotoDetailsViewController
- let indexPath = tableView.indexPath(for: sender as! UITableViewCell)! // Gets the indexPath of the selected photo
- let post = posts[indexPath.row] // Grab post at row indexPath
- if let photos = post.value(forKeyPath: "photos") as? [NSDictionary] { // Grab the “photos” key
- vc.photoUrl = photos[0].value(forKeyPath: "original_size.url") as? String // Set the photo property
-*/
-
- 
  
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let detailViewController = segue.destination as! TweetDetailViewController
-        var indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
-        let tweet = tweets[indexPath.row]
-        detailViewController.tweet = tweet
-
+        if segue.identifier == "showDetail" {
+            let detailViewController = segue.destination as! TweetDetailViewController
+            var indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+            let tweet = tweets[indexPath.row]
+            detailViewController.tweet = tweet
         
+            let backItem = UIBarButtonItem()
+            backItem.title = "Home"
+            navigationItem.backBarButtonItem = backItem
+        } else if segue.identifier == "composeNew" {
+            let composeNav = segue.destination as! UINavigationController
+            let composeViewController = composeNav.viewControllers.first as! ComposeViewController
+            
+            composeViewController.prepare(user: User.currentUser, tweetHandler: { () in
+                self.getHomeTimelines()
+            })
+        }
     }
 
 }

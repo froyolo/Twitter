@@ -15,10 +15,12 @@ let twitterConsumerKey = "gGr4n5L5aQEUODLs9vIk1TUYV"
 let twitterConsumerSecret = "O5cLsOMmQrP9CZZYB0qTtUzTayZKGjuHveA2ZoXHWpzhJ2Je5z"
 let twitterBaseUrl = URL(string: "https://api.twitter.com")!
 
+
 class TwitterService: BDBOAuth1SessionManager {
     static let sharedInstance: TwitterService! = TwitterService(baseURL: twitterBaseUrl, consumerKey: twitterConsumerKey, consumerSecret: twitterConsumerSecret)
     
     // 2nd half of login process is in the app delegate 
+    // CHECK ON WHETHER CURLY OR (?
     var loginSuccess: (() -> ())? // make it an optional
     var loginFailure: ((Error) -> ())?
     
@@ -98,8 +100,7 @@ class TwitterService: BDBOAuth1SessionManager {
     }
     
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error)->()) {
-        let params = ["count":4]
-        get("1.1/account/verify_credentials.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+        get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let userDictionary = response as! [String: Any]
             let user = User(dictionary: userDictionary)
 
@@ -110,23 +111,16 @@ class TwitterService: BDBOAuth1SessionManager {
         })
     }
     
- /*
- // Post a new tweet
- func postTweet(status: String, success: @escaping (Tweet) -> (), failure:
- @escaping (Error) -> ()) {
- 
- let params: [String:Any] = [
- "status" : status
- ]
- 
- post("1.1/statuses/update.json", parameters: params, progress: nil, success: {
- (task: URLSessionDataTask, response: Any?) in
- let tweet = Tweet(response as! NSDictionary)
- success(tweet)
- }) { (task: URLSessionDataTask?, error: Error) in
- failure(error)
- }
- */
+    func postTweet(status: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let params: [String:Any] = ["status" : status]
+        post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetDictionary = response as! [String: Any]
+            let tweet = Tweet(dictionary: tweetDictionary)
+            success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
 
     func logout () {
         User.currentUser = nil
