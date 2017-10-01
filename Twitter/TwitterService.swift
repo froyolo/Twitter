@@ -39,7 +39,7 @@ class TwitterService: BDBOAuth1SessionManager {
         fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string: "twitter://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) in
             if let requestToken = requestToken {
                 let requestTokenString = requestToken.token ?? ""
-    print(requestTokenString)
+
                 // Create URL with authorize URL and unwrap it by adding !
                 let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestTokenString)")!
 
