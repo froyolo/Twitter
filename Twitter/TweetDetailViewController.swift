@@ -10,76 +10,11 @@ import UIKit
 
 class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var screennameLabel: UILabel!
-    @IBOutlet weak var timestampLabel: UILabel!
-    @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var favoriteButton: UIButton!
-    @IBOutlet weak var retweetButton: UIButton!
-    @IBOutlet weak var tweetCountLabel: UILabel!
-    @IBOutlet weak var favoriteCountLabel: UILabel!
-    
-    let favoritedImage = UIImage(named: "hearted")
-    let unfavoritedImage = UIImage(named: "unhearted")
-    let retweetedImage = UIImage(named: "retweet")
-    let unretweetedImage = UIImage(named: "unretweet")
+
     var replies: [Tweet]! = [Tweet]()
+    var tweet: Tweet!
 
-    
-    var tweet: Tweet! {
-        didSet{
-            // Only update labels if the outlets exist
-            if nameLabel != nil && profileImage != nil && screennameLabel != nil && timestampLabel != nil && tweetTextLabel != nil {
-                updateLabels()
-            }
-        }
-    }
-    
-    @IBAction func retweetTapped(_ sender: UIButton) {
-        TwitterService.sharedInstance?.retweet(tweet: tweet, success: { (tweet) in
-            self.retweetButton.setImage(self.retweetedImage, for: UIControlState.normal)
-        }, failure: { (error: Error) in
-            print(error.localizedDescription)
-        })
-        
-    }
-
-    @IBAction func favoriteTapped(_ sender: UIButton) {
-        TwitterService.sharedInstance?.favoritedTweet(id: tweet.id!, success: { () in
-            self.favoriteButton.setImage(self.favoritedImage, for: UIControlState.normal)
-        }, failure: { (error: Error) in
-            print(error.localizedDescription)
-        })
-    }
-    
-    
-    func updateLabels() {
-        
-        screennameLabel.text = tweet.user?.screenname
-        nameLabel.text = tweet.user?.name
-        tweetTextLabel.text = tweet.text
-        timestampLabel.text = tweet.timestamp?.toString()
-        favoriteCountLabel.text = "\(tweet.favoritesCount)"
-        tweetCountLabel.text = "\(tweet.retweetCount)"
-        
-        if let profileImageURL = tweet.user?.profileUrl {
-            profileImage.setImageWith(profileImageURL)
-        }
-        
-        if tweet.retweeted {
-            self.retweetButton.setImage(retweetedImage, for: UIControlState.normal)
-        } else {
-            self.retweetButton.setImage(unretweetedImage, for: UIControlState.normal)
-        }
-        
-        if tweet.favorited {
-            self.favoriteButton.setImage(favoritedImage, for: UIControlState.normal)
-        } else {
-            self.favoriteButton.setImage(unfavoritedImage, for: UIControlState.normal)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,17 +24,51 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         // Set zero height table footer to not show cells beyond those asked for
         tableView.tableFooterView = UIView()
-        updateLabels()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 237.0
+        
+        
+        tableView.reloadData()
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return replies.count
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0: // Detail
+            return 1
+        case 1: // Replies
+            return replies.count
+        default:
+            return 0
+        }
+    }
+    
+    /*
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }*/
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReplyCell") as! ReplyCell
-        cell.tweet = replies[indexPath.row]
-        return cell
+        switch indexPath.section {
+            case 0: // Detail
+                let detailCell = tableView.dequeueReusableCell(withIdentifier: "DetailCell") as! DetailCell
+                detailCell.tweet = tweet
+                print(tweet)
+                return detailCell
+            case 1: // Replies
+                let replyCell = tableView.dequeueReusableCell(withIdentifier: "ReplyCell") as! ReplyCell
+                replyCell.tweet = replies[indexPath.row]
+                return replyCell
+        default:
+            return UITableViewCell()
+        }
     }
     
     override func didReceiveMemoryWarning() {
