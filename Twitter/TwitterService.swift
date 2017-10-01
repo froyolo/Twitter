@@ -39,7 +39,7 @@ class TwitterService: BDBOAuth1SessionManager {
         fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string: "twitter://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) in
             if let requestToken = requestToken {
                 let requestTokenString = requestToken.token ?? ""
-    
+    print(requestTokenString)
                 // Create URL with authorize URL and unwrap it by adding !
                 let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestTokenString)")!
 
@@ -92,6 +92,7 @@ class TwitterService: BDBOAuth1SessionManager {
                 
             let dictionaries = response as! [[String: Any]]
             let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries) // Can call function cuz it's a class function
+                
             success(tweets) // Give it array of tweets, and cam run the code have   
             
         }, failure: { (task:URLSessionDataTask?, error: Error?) in
@@ -126,7 +127,7 @@ class TwitterService: BDBOAuth1SessionManager {
     func favoritedTweet(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
         let params: [String:Any] = ["id" : id]
         post("1.1/favorites/create.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-            print(response)
+//            print(response)
 //            let tweetDictionary = response as! [String: Any]
 //            let tweet = Tweet(dictionary: tweetDictionary)
             success()
@@ -134,6 +135,33 @@ class TwitterService: BDBOAuth1SessionManager {
             failure(error)
         }
     }
+    
+    func retweet(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/retweet/\(tweet.id!).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetDictionary = response as! [String: Any]
+            let tweet = Tweet(dictionary: tweetDictionary)
+            success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    
+    func repliedToTweet(tweet: Tweet, replyText: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var params: [String:Any] = ["in_reply_to_status_id" : tweet.id!]
+
+        // The status text must include the screenname of the author of the referenced Tweet
+        
+        params["status"] = replyText
+        post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+                let tweetDictionary = response as! [String: Any]
+                let tweet = Tweet(dictionary: tweetDictionary)
+                success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
 
     func logout () {
         User.currentUser = nil

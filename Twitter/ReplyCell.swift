@@ -1,27 +1,23 @@
 //
-//  TweetCell.swift
+//  ReplyCell.swift
 //  Twitter
 //
-//  Created by Ngan, Naomi on 9/28/17.
+//  Created by Ngan, Naomi on 9/30/17.
 //  Copyright © 2017 Ngan, Naomi. All rights reserved.
 //
 
 import UIKit
 
-class TweetCell: UITableViewCell {
+class ReplyCell: UITableViewCell {
+
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var screennameLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!    
-    @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var replyToScreennameLabel: UILabel!
-    @IBOutlet weak var retweetedLabel: UIView!
+    @IBOutlet weak var tweetTextLabel: UILabel!
     
     var tweet: Tweet! {
         didSet{
-            if tweet.retweeted {
-                retweetedLabel.isHidden = false
-            }
-            
             if let tweetUser = tweet.user {
                 screennameLabel.text = tweetUser.screenname!
                 nameLabel.text = tweetUser.name!
@@ -37,7 +33,6 @@ class TweetCell: UITableViewCell {
             
         }
     }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

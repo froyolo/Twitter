@@ -104,7 +104,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let composeNav = segue.destination as! UINavigationController
             let composeViewController = composeNav.viewControllers.first as! ComposeViewController
             
-            composeViewController.prepare(user: User.currentUser, tweetHandler: { () in
+            composeViewController.prepare(tweetHandler: { () in
                 self.getHomeTimelines()
             })
         }

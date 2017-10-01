@@ -58,7 +58,8 @@ class User: NSObject {
                 let data = try! JSONSerialization.data(withJSONObject: user.dictionary!, options: [])
                 defaults.set(data, forKey:currentUserKey)
             } else {
-                defaults.set(nil, forKey: currentUserKey)
+                //defaults.set(nil, forKey: currentUserKey)
+                defaults.removeObject(forKey: currentUserKey)
             }
             defaults.synchronize() // save to disk
         }

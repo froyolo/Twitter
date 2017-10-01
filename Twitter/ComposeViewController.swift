@@ -26,10 +26,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    func prepare(user: User!, tweetHandler: @escaping () -> Void) {
-        if let user = user {
-            self.user = user
-        }
+    func prepare(tweetHandler: @escaping () -> Void) {
+        user = User.currentUser
         self.tweetHandler = tweetHandler
     }
     
@@ -63,15 +61,46 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         
         updateLabels()
         
-        // Do any additional setup after loading the view.
+        self.textView.delegate = self
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    /*
+    let COMMENTS_LIMIT = 140
+    
+    func textViewDidChange(_ textView: UITextView) {
+        <#code#>
+    }
+    */
+    /*
+    func updateCharacterCount() {
+        self.yourLabel.text = "\((65) - self.yourTextView.text.characters.count)"
+    }
+    
+    
+    func textViewDidChange(textView: UITextView) {
+        self.updateCharacterCount()
+    }
+     
+     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+     guard let text = textField.text else { return true }
+     
+     let newLength = text.characters.count + string.characters.count
+     - range.length
+     return newLength <= yourTextLimit
+     }
+    
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        self.updateCharacterCount()
+        return textView.text.characters.count +  (text.characters.count - range.length) <= 65
+    }*/
+    
     /*
     // MARK: - Navigation
 

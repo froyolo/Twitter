@@ -33,6 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyboard.instantiateInitialViewController()
             self.window?.rootViewController = vc
         }
+        
+        // Change navigation bar appearance
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.tintColor = UIColor.white
+        navigationBarAppearance.barTintColor = UIColor(red:0.00, green:0.75, blue:1.00, alpha:1.0)
+        
+
+        
         return true
     }
 

@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "unheart.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "unretweeted.png",
       "scale" : "2x"
     },
     {

@@ -12,10 +12,12 @@ class Tweet: NSObject {
     var id: String?
     var text: String?
     var timestamp: Date?
+    var retweeted: Bool = false
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
     var favorited: Bool = false
     var user: User! // author
+    var inReplyToScreenname: String?
 
     init(dictionary: [String:Any]) {
         // added in v2
@@ -26,14 +28,15 @@ class Tweet: NSObject {
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
         id = dictionary["id_str"] as? String
+        retweeted = dictionary["retweeted"] as? Bool ?? false
         favorited = dictionary["favorited"] as? Bool ?? false
-        
-        
         let timestampString = dictionary["created_at"] as? String
         if let timestampString = timestampString {
             timestamp = Date(dateString: timestampString)
         }
-        
+        if let replyTo = dictionary["in_reply_to_screen_name"] as? String {
+            inReplyToScreenname = "@\(replyTo)"
+        }
         
     }
     
