@@ -35,7 +35,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
+        tableView.estimatedRowHeight = 150
 
         // Load home timeline
         self.getHomeTimelines()

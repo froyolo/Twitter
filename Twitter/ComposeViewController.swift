@@ -17,7 +17,6 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var remainingCharactersButton: UIBarButtonItem!
     fileprivate var tweetHandler: (Tweet) -> Void = { (tweet) in }
-    let characterLimit = 140
     
     var user: User! {
         didSet{
@@ -71,20 +70,6 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if let viewText = textView.text {
-            let newLength = viewText.characters.count + text.characters.count - range.length
-        
-            let remainingCount = characterLimit - newLength
-            if remainingCount >= 0 {
-                remainingCharactersButton.title =  "\(remainingCount)"
-            }
-         
-            return newLength <= characterLimit
-        }
-        return true;
     }
 
     /*

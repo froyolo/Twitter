@@ -8,10 +8,12 @@
 
 import UIKit
 
-class ReplyViewController: UIViewController {
+class ReplyViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var authorScreennameLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var remainingCharactersButton: UIBarButtonItem!
+
     fileprivate var replyHandler: (Tweet) -> Void = { (tweet) in }
     var tweet: Tweet! // Tweet being replied to
     
@@ -25,6 +27,8 @@ class ReplyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         authorScreennameLabel.text = tweet.user.screenname
+        
+        textView.delegate = self
         
         // Keyboard is always visible and the text view is always the first responder
         textView.becomeFirstResponder()
@@ -42,6 +46,21 @@ class ReplyViewController: UIViewController {
         }, failure: { (error: Error) in
             print(error.localizedDescription)
         })
+    }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if let viewText = textView.text {
+            let newLength = viewText.characters.count + text.characters.count - range.length
+            
+            let remainingCount = Tweet.characterLimit - newLength
+            if remainingCount >= 0 {
+                self.remainingCharactersButton.title =  "\(remainingCount)"
+            }
+            
+            return newLength <= Tweet.characterLimit
+        }
+        return true;
     }
     
     

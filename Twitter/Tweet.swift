@@ -9,6 +9,8 @@
 import UIKit
 
 class Tweet: NSObject {
+    static let characterLimit:Int = 140
+    
     var id: String?
     var text: String?
     var timestamp: Date?

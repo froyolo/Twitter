@@ -47,20 +47,13 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
             return 0
         }
     }
-    
-    /*
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }*/
-    
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
             case 0: // Detail
                 let detailCell = tableView.dequeueReusableCell(withIdentifier: "DetailCell") as! DetailCell
                 detailCell.tweet = tweet
-                print(tweet)
                 return detailCell
             case 1: // Replies
                 let replyCell = tableView.dequeueReusableCell(withIdentifier: "ReplyCell") as! ReplyCell

@@ -124,22 +124,58 @@ class TwitterService: BDBOAuth1SessionManager {
         }
     }
     
-    func favoritedTweet(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
-        let params: [String:Any] = ["id" : id]
+    func favoriteTweet(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let beforePostFavoritesCount = tweet.favoritesCount
+        let params: [String:Any] = ["id" : tweet.id!]
         post("1.1/favorites/create.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-//            print(response)
-//            let tweetDictionary = response as! [String: Any]
-//            let tweet = Tweet(dictionary: tweetDictionary)
-            success()
+            let tweetDictionary = response as! [String: Any]
+            let tweet = Tweet(dictionary: tweetDictionary)
+            
+            if !tweet.favorited || !(tweet.favoritesCount > beforePostFavoritesCount) {
+                print("Twitter has update lag")
+                // Manually set this locally.
+                tweet.favoritesCount += 1
+                tweet.favorited = true
+            }
+            success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    func unfavoriteTweet(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let beforePostFavoritesCount = tweet.favoritesCount
+        let params: [String:Any] = ["id" : tweet.id!]
+        post("1.1/favorites/destroy.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetDictionary = response as! [String: Any]
+            let tweet = Tweet(dictionary: tweetDictionary)
+
+            if tweet.favorited || !(tweet.favoritesCount <= beforePostFavoritesCount) {
+                print("Twitter has update lag")
+                // Manually set this locally.
+                tweet.favoritesCount -= 1
+                tweet.favorited = false
+            }
+            success(tweet)
         }) { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         }
     }
     
     func retweet(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let beforePostRetweetCount = tweet.retweetCount
+        
         post("1.1/statuses/retweet/\(tweet.id!).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
+
+            if !tweet.retweeted || !(tweet.retweetCount > beforePostRetweetCount) {
+                print("Twitter has update lag")
+                // Manually set this locally.
+                tweet.retweetCount += 1
+                tweet.retweeted = true
+            }
+            
             success(tweet)
         }) { (task: URLSessionDataTask?, error: Error) in
             failure(error)

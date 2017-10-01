@@ -56,17 +56,30 @@ class DetailCell: UITableViewCell {
     @IBAction func retweetTapped(_ sender: UIButton) {
         TwitterService.sharedInstance?.retweet(tweet: tweet, success: { (tweet) in
             self.retweetButton.setImage(self.retweetedImage, for: UIControlState.normal)
+            self.retweetCountLabel.text = "\(tweet.retweetCount)" // Manually locally due to potential Twitter lag
         }, failure: { (error: Error) in
             print(error.localizedDescription)
         })
     }
     
     @IBAction func favoriteTapped(_ sender: UIButton) {
-        TwitterService.sharedInstance?.favoritedTweet(id: tweet.id!, success: { () in
-            self.favoriteButton.setImage(self.favoritedImage, for: UIControlState.normal)
-        }, failure: { (error: Error) in
-            print(error.localizedDescription)
-        })
+        if tweet.favorited { // Trying to unfavorite
+            TwitterService.sharedInstance?.unfavoriteTweet(tweet: tweet, success: { (tweet) in
+                self.favoriteButton.setImage(self.unfavoritedImage, for: UIControlState.normal)
+                self.tweet = tweet
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+            
+        } else {
+            TwitterService.sharedInstance?.favoriteTweet(tweet: tweet, success: { (tweet) in
+                self.favoriteButton.setImage(self.favoritedImage, for: UIControlState.normal)
+                self.tweet = tweet
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+            
+        }
     }
 
     
