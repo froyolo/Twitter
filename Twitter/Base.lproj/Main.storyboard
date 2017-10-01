@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -90,15 +91,19 @@
                                 <action selector="cancelTapped:" destination="eve-A4-q5x" id="Vxx-Xu-V94"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="lAS-13-fl9">
-                            <connections>
-                                <action selector="tweetTapped:" destination="eve-A4-q5x" id="S9y-MW-0Yl"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Tweet" id="lAS-13-fl9">
+                                <connections>
+                                    <action selector="tweetTapped:" destination="eve-A4-q5x" id="S9y-MW-0Yl"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="140" id="MMe-fc-jkb"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="HDC-BK-yPr" id="InR-9P-XsB"/>
                         <outlet property="profileImage" destination="wK7-o8-2xE" id="GlO-zx-GDc"/>
+                        <outlet property="remainingCharactersButton" destination="MMe-fc-jkb" id="Rty-ne-6eB"/>
                         <outlet property="screennameLabel" destination="S1Z-17-EIm" id="jV2-mf-xjZ"/>
                         <outlet property="textView" destination="QL7-ej-bo5" id="fSW-Qp-o7c"/>
                     </connections>

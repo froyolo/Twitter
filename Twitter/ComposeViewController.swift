@@ -15,7 +15,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var remainingCharactersButton: UIBarButtonItem!
     fileprivate var tweetHandler: () -> Void = { () in }
+    let characterLimit = 140
     
     var user: User! {
         didSet{
@@ -56,6 +58,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.delegate = self
+        
         // Keyboard is always visible and the text view is always the first responder
         textView.becomeFirstResponder()
         
@@ -70,37 +73,20 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-    let COMMENTS_LIMIT = 140
-    
-    func textViewDidChange(_ textView: UITextView) {
-        <#code#>
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if let viewText = textView.text {
+            let newLength = viewText.characters.count + text.characters.count - range.length
+        
+            let remainingCount = characterLimit - newLength
+            if remainingCount >= 0 {
+                remainingCharactersButton.title =  "\(remainingCount)"
+            }
+         
+            return newLength <= characterLimit
+        }
+        return true;
     }
-    */
-    /*
-    func updateCharacterCount() {
-        self.yourLabel.text = "\((65) - self.yourTextView.text.characters.count)"
-    }
-    
-    
-    func textViewDidChange(textView: UITextView) {
-        self.updateCharacterCount()
-    }
-     
-     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-     guard let text = textField.text else { return true }
-     
-     let newLength = text.characters.count + string.characters.count
-     - range.length
-     return newLength <= yourTextLimit
-     }
-    
-    
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        self.updateCharacterCount()
-        return textView.text.characters.count +  (text.characters.count - range.length) <= 65
-    }*/
-    
+
     /*
     // MARK: - Navigation
 
