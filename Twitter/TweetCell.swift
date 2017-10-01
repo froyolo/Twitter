@@ -15,11 +15,16 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var replyToScreennameLabel: UILabel!
     @IBOutlet weak var retweetedLabel: UIView!
+    @IBOutlet weak var retweetButton: UIButton!    
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var retweetImage: UIImageView!
+    @IBOutlet weak var retweetTextLabel: UILabel!
     
     var tweet: Tweet! {
         didSet{
             if tweet.retweeted {
-                retweetedLabel.isHidden = false
+                retweetImage.isHidden = true
+                retweetTextLabel.isHidden = true
             } 
             
             if let tweetUser = tweet.user {
@@ -41,7 +46,8 @@ class TweetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        profileImage.layer.cornerRadius = 10
+        profileImage.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
