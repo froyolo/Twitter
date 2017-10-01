@@ -24,12 +24,16 @@ class Tweet: NSObject {
         user = User(dictionary: dictionary["user"] as! [String:Any])
 
         text = dictionary["text"] as? String // If text doesn't exist as key, then text will be nil because the cast will fail
-        // retweetCount = dictionary["retweet_count"] as! Int // The ! is slightly dangerous because if not exist so will crash.  Can do below instead
+
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-        favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
+        favoritesCount = (dictionary["favorite_count"] as? Int) ?? 0
+        
         id = dictionary["id_str"] as? String
         retweeted = dictionary["retweeted"] as? Bool ?? false
         favorited = dictionary["favorited"] as? Bool ?? false
+        
+        //TODO Deal with RTs and the counts there
+        
         let timestampString = dictionary["created_at"] as? String
         if let timestampString = timestampString {
             timestamp = Date(dateString: timestampString)

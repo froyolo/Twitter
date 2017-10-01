@@ -18,6 +18,8 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var tweetCountLabel: UILabel!
+    @IBOutlet weak var favoriteCountLabel: UILabel!
     
     let favoritedImage = UIImage(named: "hearted")
     let unfavoritedImage = UIImage(named: "unhearted")
@@ -59,6 +61,8 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         nameLabel.text = tweet.user?.name
         tweetTextLabel.text = tweet.text
         timestampLabel.text = tweet.timestamp?.toString()
+        favoriteCountLabel.text = "\(tweet.favoritesCount)"
+        tweetCountLabel.text = "\(tweet.retweetCount)"
         
         if let profileImageURL = tweet.user?.profileUrl {
             profileImage.setImageWith(profileImageURL)
