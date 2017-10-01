@@ -16,7 +16,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var remainingCharactersButton: UIBarButtonItem!
-    fileprivate var tweetHandler: () -> Void = { () in }
+    fileprivate var tweetHandler: (Tweet) -> Void = { (tweet) in }
     let characterLimit = 140
     
     var user: User! {
@@ -28,14 +28,14 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    func prepare(tweetHandler: @escaping () -> Void) {
+    func prepare(tweetHandler: @escaping (Tweet) -> Void) {
         user = User.currentUser
         self.tweetHandler = tweetHandler
     }
     
     @IBAction func tweetTapped(_ sender: UIBarButtonItem) {
         TwitterService.sharedInstance?.postTweet(status: textView.text, success: { (tweet: Tweet) in
-            self.tweetHandler()
+            self.tweetHandler(tweet)
             self.dismiss(animated: true, completion: nil)
         }, failure: { (error: Error) in
             print(error.localizedDescription)

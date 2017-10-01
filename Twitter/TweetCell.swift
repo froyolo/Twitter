@@ -20,7 +20,7 @@ class TweetCell: UITableViewCell {
         didSet{
             if tweet.retweeted {
                 retweetedLabel.isHidden = false
-            }
+            } 
             
             if let tweetUser = tweet.user {
                 screennameLabel.text = tweetUser.screenname!

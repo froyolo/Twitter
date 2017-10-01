@@ -104,8 +104,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let composeNav = segue.destination as! UINavigationController
             let composeViewController = composeNav.viewControllers.first as! ComposeViewController
             
-            composeViewController.prepare(tweetHandler: { () in
-                self.getHomeTimelines()
+            composeViewController.prepare(tweetHandler: { (tweet) in
+                // Avoid refetching the timeline.  Just tack the new tweet to the beginning.
+                self.tweets.insert(tweet, at: 0)
+                self.tableView.reloadData()
             })
         }
     }
