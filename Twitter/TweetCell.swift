@@ -30,9 +30,12 @@ class TweetCell: UITableViewCell {
     var tweet: Tweet! {
         didSet{
             if tweet.retweeted {
+                retweetImage.isHidden = false
+                retweetTextLabel.isHidden = false
+            } else {
                 retweetImage.isHidden = true
                 retweetTextLabel.isHidden = true
-            } 
+            }
             
             if let tweetUser = tweet.user {
                 screennameLabel.text = tweetUser.screenname!
@@ -60,6 +63,42 @@ class TweetCell: UITableViewCell {
             }
             
             timeAgoLabel.text = (tweet.timestamp! as NSDate).timeAgo()
+            
+        }
+    }
+    
+    @IBAction func retweetTapped(_ sender: UIButton) {
+        if tweet.retweeted { // Try to unretweet
+            TwitterService.sharedInstance?.unretweet(tweet: tweet, success: { (tweet) in
+                self.retweetButton.setImage(self.unretweetedImage, for: UIControlState.normal)
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+        } else {
+            TwitterService.sharedInstance?.retweet(tweet: tweet, success: { (tweet) in
+                self.retweetButton.setImage(self.retweetedImage, for: UIControlState.normal)
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+        }
+    }
+    
+    @IBAction func favoriteTapped(_ sender: UIButton) {
+        if tweet.favorited { // Trying to unfavorite
+            TwitterService.sharedInstance?.unfavoriteTweet(tweet: tweet, success: { (tweet) in
+                self.favoriteButton.setImage(self.unfavoritedImage, for: UIControlState.normal)
+                self.tweet = tweet
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+            
+        } else {
+            TwitterService.sharedInstance?.favoriteTweet(tweet: tweet, success: { (tweet) in
+                self.favoriteButton.setImage(self.favoritedImage, for: UIControlState.normal)
+                self.tweet = tweet
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
             
         }
     }

@@ -21,6 +21,9 @@ class DetailCell: UITableViewCell {
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
     
+    @IBOutlet weak var retweetImage: UIImageView!
+    @IBOutlet weak var retweetTextLabel: UILabel!
+    
     let favoritedImage = UIImage(named: "hearted")
     let unfavoritedImage = UIImage(named: "unhearted")
     let retweetedImage = UIImage(named: "retweet")
@@ -41,8 +44,13 @@ class DetailCell: UITableViewCell {
             
             if tweet.retweeted {
                 self.retweetButton.setImage(retweetedImage, for: UIControlState.normal)
+                retweetImage.isHidden = false
+                retweetTextLabel.isHidden = false
+                
             } else {
                 self.retweetButton.setImage(unretweetedImage, for: UIControlState.normal)
+                retweetImage.isHidden = true
+                retweetTextLabel.isHidden = true
             }
             
             if tweet.favorited {

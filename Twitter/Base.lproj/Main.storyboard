@@ -185,7 +185,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="@engadget" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8S-nC-GmT">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="@engadget" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8S-nC-GmT">
                                                     <rect key="frame" x="171.5" y="36.5" width="79" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -224,6 +224,9 @@
                                                         <constraint firstAttribute="height" constant="20" id="iBs-YT-LKK"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="unretweet"/>
+                                                    <connections>
+                                                        <action selector="retweetTapped:" destination="atb-hN-Te5" eventType="touchUpInside" id="W9O-Z8-nBQ"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jz4-uF-fmx" userLabel="heart">
                                                     <rect key="frame" x="203" y="155" width="20" height="20"/>
@@ -232,6 +235,9 @@
                                                         <constraint firstAttribute="height" constant="20" id="TQg-fA-9cg"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="unhearted"/>
+                                                    <connections>
+                                                        <action selector="favoriteTapped:" destination="atb-hN-Te5" eventType="touchUpInside" id="zPE-uE-gOS"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -494,6 +500,8 @@
                                             <outlet property="profileImage" destination="sLW-l3-qUE" id="jRw-4a-FUW"/>
                                             <outlet property="retweetButton" destination="7lr-YL-gwU" id="Mkq-Zr-R6u"/>
                                             <outlet property="retweetCountLabel" destination="vNp-x3-I6H" id="lRA-Qp-x7v"/>
+                                            <outlet property="retweetImage" destination="uvG-Sq-Pt3" id="beq-hl-zWf"/>
+                                            <outlet property="retweetTextLabel" destination="za2-b7-HBN" id="FaI-2K-kGH"/>
                                             <outlet property="screennameLabel" destination="vCB-Rb-dK6" id="ebc-yv-6Rb"/>
                                             <outlet property="timestampLabel" destination="ftO-PA-gMu" id="t01-Iw-VrU"/>
                                             <outlet property="tweetTextLabel" destination="Dj4-il-NWP" id="87e-6N-7Y5"/>
