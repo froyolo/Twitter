@@ -8,5 +8,5 @@ target 'Twitter' do
   # Pods for Twitter
   pod 'AFNetworking'
   pod 'BDBOAuth1Manager'
-
+  pod 'NSDateMinimalTimeAgo'
 end

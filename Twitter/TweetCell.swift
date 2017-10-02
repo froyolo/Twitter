@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NSDateMinimalTimeAgo
 
 class TweetCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
@@ -19,6 +20,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var retweetImage: UIImageView!
     @IBOutlet weak var retweetTextLabel: UILabel!
+    @IBOutlet weak var timeAgoLabel: UILabel!
     
     let favoritedImage = UIImage(named: "hearted")
     let unfavoritedImage = UIImage(named: "unhearted")
@@ -46,16 +48,19 @@ class TweetCell: UITableViewCell {
             }
             
             if tweet.retweeted {
-                self.retweetButton.setImage(retweetedImage, for: UIControlState.normal)
+                retweetButton.setImage(retweetedImage, for: UIControlState.normal)
             } else {
-                self.retweetButton.setImage(unretweetedImage, for: UIControlState.normal)
+                retweetButton.setImage(unretweetedImage, for: UIControlState.normal)
             }
             
             if tweet.favorited {
-                self.favoriteButton.setImage(favoritedImage, for: UIControlState.normal)
+                favoriteButton.setImage(favoritedImage, for: UIControlState.normal)
             } else {
-                self.favoriteButton.setImage(unfavoritedImage, for: UIControlState.normal)
+                favoriteButton.setImage(unfavoritedImage, for: UIControlState.normal)
             }
+            
+            timeAgoLabel.text = (tweet.timestamp! as NSDate).timeAgo()
+            
         }
     }
     

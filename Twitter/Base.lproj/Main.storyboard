@@ -270,6 +270,7 @@
                                             <outlet property="retweetImage" destination="hYC-LG-pUW" id="iHi-2B-VjB"/>
                                             <outlet property="retweetTextLabel" destination="NFk-ch-vG6" id="7EW-6l-5Ry"/>
                                             <outlet property="screennameLabel" destination="i8S-nC-GmT" id="4oY-Ir-40g"/>
+                                            <outlet property="timeAgoLabel" destination="iqQ-Af-wol" id="Vsc-v5-9zv"/>
                                             <outlet property="tweetTextLabel" destination="21H-DQ-xdA" id="h7w-15-SUY"/>
                                             <segue destination="ac4-EC-Sbi" kind="show" identifier="showDetail" id="SWs-ZF-CPq"/>
                                         </connections>
@@ -566,6 +567,7 @@
                                             <outlet property="profileImage" destination="NNU-Ei-AxQ" id="481-Sd-dB4"/>
                                             <outlet property="replyToScreennameLabel" destination="xJy-XG-hC9" id="gQD-mb-ebD"/>
                                             <outlet property="screennameLabel" destination="V4x-9Z-Hhu" id="sYh-XK-6hr"/>
+                                            <outlet property="timeAgoLabel" destination="LPF-tY-1ah" id="Lcd-qZ-NH5"/>
                                             <outlet property="tweetTextLabel" destination="J2j-Ng-Cbp" id="QsN-Q2-6q8"/>
                                         </connections>
                                     </tableViewCell>

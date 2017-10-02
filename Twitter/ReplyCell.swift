@@ -15,6 +15,7 @@ class ReplyCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var replyToScreennameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var timeAgoLabel: UILabel!
     
     var tweet: Tweet! {
         didSet{
@@ -24,6 +25,8 @@ class ReplyCell: UITableViewCell {
                 profileImage.setImageWith(tweetUser.profileUrl!)
             }
             tweetTextLabel.text = tweet.text
+            timeAgoLabel.text = (tweet.timestamp! as NSDate).timeAgo()
+            
             
             if let replyTo = tweet.inReplyToScreenname {
                 replyToScreennameLabel.text = "Replying to " + replyTo
