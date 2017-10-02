@@ -85,8 +85,12 @@ class TwitterService: BDBOAuth1SessionManager {
     // Pagination? Pack into a dictionary?  or what else?
     // v2 had 
     // func hometimeline(params: Dictionary?, completion:slkdfsldkjfsld, error: alskdjalskjdf)
-    func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        let params: [String:Any] = ["count" : 20]
+    func homeTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        var params: [String:Any] = ["count" : 20]
+        if let maxId = maxId { // For finding older results
+            let offset: Int64 = Int64(maxId)! - 1
+            params["max_id"] = "\(offset)"
+        }
         get("1.1/statuses/home_timeline.json", parameters: params, progress: nil,
             success: { (task: URLSessionDataTask, response: Any?) in
                 

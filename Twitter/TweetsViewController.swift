@@ -8,11 +8,14 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
-    var tweets: [Tweet]! = [Tweet]()
-    
     @IBOutlet weak var tableView: UITableView!
+    var isMoreDataLoading = false // infinite scrolling
+    var loadingMoreView:InfiniteScrollActivityView?
+    var tweets: [Tweet]! = [Tweet]()
+    var resultsLimit = 20
+    var offset = 0
     
     @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
         TwitterService.sharedInstance?.logout()
@@ -37,15 +40,63 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.estimatedRowHeight = 150
 
         // Load home timeline
-        self.getHomeTimelines()
+        getHomeTimelines()
+        
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        tableView.contentInset = insets
         
     }
     
+    // For infinite scrolling
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                
+                isMoreDataLoading = true
+                
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                // Load more results ...
+                getHomeTimelines()
+            }
+            
+            
+        }
+    }
+    
+    
     // Perform the search.
     fileprivate func getHomeTimelines() {
+        // Not getting more data, so we reset to make sure we don't append
+        var maxId: String?
+        if isMoreDataLoading && tweets.count > 0 {
+            maxId = (tweets[tweets.count-1]).id!
+        }
         
-        TwitterService.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterService.sharedInstance?.homeTimeline(maxId: maxId, success: { (tweets: [Tweet]) in
             self.tweets = tweets
+            
+            // Update flag
+            self.isMoreDataLoading = false
+            
+            // Stop the loading indicator
+            self.loadingMoreView!.stopAnimating()
+
             self.tableView.reloadData()
             
         }, failure: { (error: Error) in
