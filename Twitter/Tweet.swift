@@ -20,6 +20,8 @@ class Tweet: NSObject {
     var favorited: Bool = false
     var user: User! // author
     var inReplyToScreenname: String?
+    var retweetedTweet: Tweet?
+    var currentUserRetweetId: String?
 
     init(dictionary: [String:Any]) {
         // added in v2
@@ -34,14 +36,20 @@ class Tweet: NSObject {
         retweeted = dictionary["retweeted"] as? Bool ?? false
         favorited = dictionary["favorited"] as? Bool ?? false
         
-        //TODO Deal with RTs and the counts there
-        
         let timestampString = dictionary["created_at"] as? String
         if let timestampString = timestampString {
             timestamp = Date(dateString: timestampString)
         }
         if let replyTo = dictionary["in_reply_to_screen_name"] as? String {
             inReplyToScreenname = "@\(replyTo)"
+        }
+        
+        if let retweetedStatus = dictionary["retweeted_status"] { // If a retweet, this will hold the original
+            retweetedTweet = Tweet(dictionary: retweetedStatus as! [String: Any])
+        }
+        
+        if let currentUserRetweet = dictionary["current_user_retweet"] as? [String:Any] {
+            currentUserRetweetId = currentUserRetweet["id_str"] as? String // ID of current user's retweet
         }
         
     }

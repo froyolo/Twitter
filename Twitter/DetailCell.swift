@@ -54,12 +54,21 @@ class DetailCell: UITableViewCell {
     }
 
     @IBAction func retweetTapped(_ sender: UIButton) {
-        TwitterService.sharedInstance?.retweet(tweet: tweet, success: { (tweet) in
-            self.retweetButton.setImage(self.retweetedImage, for: UIControlState.normal)
-            self.retweetCountLabel.text = "\(tweet.retweetCount)" // Manually locally due to potential Twitter lag
-        }, failure: { (error: Error) in
-            print(error.localizedDescription)
-        })
+        if tweet.retweeted { // Try to unretweet
+            TwitterService.sharedInstance?.unretweet(tweet: tweet, success: { (tweet) in
+                self.retweetButton.setImage(self.unretweetedImage, for: UIControlState.normal)
+                self.retweetCountLabel.text = "\(tweet.retweetCount)" // Manually locally due to potential Twitter lag
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+        } else {
+            TwitterService.sharedInstance?.retweet(tweet: tweet, success: { (tweet) in
+                self.retweetButton.setImage(self.retweetedImage, for: UIControlState.normal)
+                self.retweetCountLabel.text = "\(tweet.retweetCount)" // Manually locally due to potential Twitter lag
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+            })
+        }
     }
     
     @IBAction func favoriteTapped(_ sender: UIButton) {

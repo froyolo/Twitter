@@ -131,7 +131,7 @@ class TwitterService: BDBOAuth1SessionManager {
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
             
-            if !tweet.favorited || !(tweet.favoritesCount > beforePostFavoritesCount) {
+            if !tweet.favorited || tweet.favoritesCount <= beforePostFavoritesCount {
                 print("Twitter has update lag")
                 // Manually set this locally.
                 tweet.favoritesCount += 1
@@ -150,7 +150,7 @@ class TwitterService: BDBOAuth1SessionManager {
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
 
-            if tweet.favorited || !(tweet.favoritesCount <= beforePostFavoritesCount) {
+            if tweet.favorited || (tweet.favoritesCount >= beforePostFavoritesCount) {
                 print("Twitter has update lag")
                 // Manually set this locally.
                 tweet.favoritesCount -= 1
@@ -169,7 +169,7 @@ class TwitterService: BDBOAuth1SessionManager {
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
 
-            if !tweet.retweeted || !(tweet.retweetCount > beforePostRetweetCount) {
+            if !tweet.retweeted || !(tweet.retweetCount <= beforePostRetweetCount) {
                 print("Twitter has update lag")
                 // Manually set this locally.
                 tweet.retweetCount += 1
@@ -182,6 +182,44 @@ class TwitterService: BDBOAuth1SessionManager {
         }
     }
     
+    func unretweet(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        if tweet.retweeted { // Can only unretweet a tweet that was retweeted
+
+            // Determine the id of the original tweet
+            var originalTweetId = tweet.id
+            if tweet.retweetedTweet != nil {
+                // Tweet was itself a retweet
+                originalTweetId = tweet.retweetedTweet?.id
+            }
+        
+            // Get the logged-in user's retweet
+            var retweet: Tweet?
+            var params: [String:Any] = ["include_my_retweet" : 1]
+            params["id"] = originalTweetId
+            get("1.1/statuses/show.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+                let retweetDictionary = response as! [String: Any]
+                retweet = Tweet(dictionary: retweetDictionary)
+                
+                // Delete the retweet
+                if let retweetId = retweet?.currentUserRetweetId {
+                    self.post("1.1/statuses/destroy/\(retweetId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+                        let tweetDictionary = response as! [String: Any]
+                        let tweet = Tweet(dictionary: tweetDictionary)
+                        
+                        // Retweet successful, manually decrement the count of the original retweeted tweet to avoid lags
+                        tweet.retweetCount -= 1
+                        tweet.retweeted = false
+                        
+                        success(tweet)
+                    }) { (task: URLSessionDataTask?, error: Error) in
+                        failure(error)
+                    }
+                }
+            }) { (task: URLSessionDataTask?, error: Error) in
+                failure(error)
+            }
+        }
+    }
     
     func repliedToTweet(tweet: Tweet, replyText: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         var params: [String:Any] = ["in_reply_to_status_id" : tweet.id!]
