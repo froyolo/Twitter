@@ -54,7 +54,6 @@ class Tweet: NSObject {
         
     }
     
-    // helper.  A class function
     class func tweetsWithArray(dictionaries: [[String:Any]]) -> [Tweet] {
         var tweets = [Tweet]()
         for dictionary in dictionaries {

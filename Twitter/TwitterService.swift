@@ -10,7 +10,6 @@ import UIKit
 import BDBOAuth1Manager
 
 
-// Production app, we'd pull these from a plist (etc) instead of being backed into class
 let twitterConsumerKey = "gGr4n5L5aQEUODLs9vIk1TUYV"
 let twitterConsumerSecret = "O5cLsOMmQrP9CZZYB0qTtUzTayZKGjuHveA2ZoXHWpzhJ2Je5z"
 let twitterBaseUrl = URL(string: "https://api.twitter.com")!
@@ -19,20 +18,15 @@ let twitterBaseUrl = URL(string: "https://api.twitter.com")!
 class TwitterService: BDBOAuth1SessionManager {
     static let sharedInstance: TwitterService! = TwitterService(baseURL: twitterBaseUrl, consumerKey: twitterConsumerKey, consumerSecret: twitterConsumerSecret)
     
-    // 2nd half of login process is in the app delegate 
-    // CHECK ON WHETHER CURLY OR (?
     var loginSuccess: (() -> ())? // make it an optional
     var loginFailure: ((Error) -> ())?
     
-    // sometimes people use completion instead of success.  Your choice
     func login(success: @escaping () -> (), failure: @escaping (Error)->()) {
         // Fetch request token & redirect to authorization page
         
         loginSuccess = success // Holds login closure until completion
         loginFailure = failure
         
-        
-        // Bug BDBO can be flaky if you don't log out.  Clears previous keychain sessions.
         deauthorize()
         
         // Get token so can send user to the authorize URL
@@ -77,14 +71,6 @@ class TwitterService: BDBOAuth1SessionManager {
         
     }
     
-    
-    // Uses closures
-    // When succeed, have closure where hand array of tweets, and don't need a response from you
-    // When failure, give me error
-    // ONce have closure, can store code given into thing called a success block
-    // Pagination? Pack into a dictionary?  or what else?
-    // v2 had 
-    // func hometimeline(params: Dictionary?, completion:slkdfsldkjfsld, error: alskdjalskjdf)
     func homeTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         var params: [String:Any] = ["count" : 20]
         if let maxId = maxId { // For finding older results
@@ -242,9 +228,6 @@ class TwitterService: BDBOAuth1SessionManager {
     func logout () {
         User.currentUser = nil
         deauthorize()
-        
-        // Sometimes things can get into a bad state, good to clean things up.  Still need?!
-        //TwitterService.sharedInstance?.requestSerializer.removeAccessToken()
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
     }

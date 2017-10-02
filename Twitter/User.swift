@@ -65,9 +65,4 @@ class User: NSObject {
         }
     }
     
-    // In v2, he adds the following (etc)_:
-   /* func logout() {
-        User.currentUser = nil
-        TwitterService.shared
-    }*/
 }

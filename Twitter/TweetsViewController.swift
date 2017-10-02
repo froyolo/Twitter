@@ -19,8 +19,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
         TwitterService.sharedInstance?.logout()
-        
-        // In v2, he does User.currentUser?.logout()
     }
     
     override func viewDidLoad() {
@@ -139,10 +137,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
  
-    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detailViewController = segue.destination as! TweetDetailViewController
