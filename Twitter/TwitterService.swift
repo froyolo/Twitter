@@ -169,7 +169,7 @@ class TwitterService: BDBOAuth1SessionManager {
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
 
-            if !tweet.retweeted || !(tweet.retweetCount <= beforePostRetweetCount) {
+            if !tweet.retweeted || (tweet.retweetCount <= beforePostRetweetCount) {
                 print("Twitter has update lag")
                 // Manually set this locally.
                 tweet.retweetCount += 1
@@ -222,11 +222,9 @@ class TwitterService: BDBOAuth1SessionManager {
     }
     
     func repliedToTweet(tweet: Tweet, replyText: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-        var params: [String:Any] = ["in_reply_to_status_id" : tweet.id!]
-
-        // The status text must include the screenname of the author of the referenced Tweet
         
-        params["status"] = replyText
+        var params: [String:Any] = ["in_reply_to_status_id" : tweet.id!]
+        params["status"] = replyText // The status text must include the screenname of the author of the referenced Tweet
         post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
                 let tweetDictionary = response as! [String: Any]
                 let tweet = Tweet(dictionary: tweetDictionary)

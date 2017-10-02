@@ -72,14 +72,14 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Naomi Ngan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDC-BK-yPr">
-                                <rect key="frame" x="93" y="74" width="212" height="15"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <rect key="frame" x="93" y="74" width="212" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@curious_nome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1Z-17-EIm">
-                                <rect key="frame" x="93" y="91" width="212" height="15"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <rect key="frame" x="93" y="94" width="212" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -498,53 +498,68 @@
                                             <outlet property="tweetTextLabel" destination="Dj4-il-NWP" id="87e-6N-7Y5"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReplyCell" rowHeight="85" id="iCq-hU-Fcc" customClass="ReplyCell" customModule="Twitter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="290" width="320" height="85"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReplyCell" rowHeight="105" id="iCq-hU-Fcc" customClass="ReplyCell" customModule="Twitter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="290" width="320" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iCq-hU-Fcc" id="mFy-NP-0gm">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="84.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="104.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Naomi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4x-9Z-Hhu">
-                                                    <rect key="frame" x="97" y="5" width="55" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Naomi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4x-9Z-Hhu">
+                                                    <rect key="frame" x="78" y="8" width="47" height="18"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@curious_nome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5e-qQ-UTV">
-                                                    <rect key="frame" x="147" y="5" width="90" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="@curious_nome" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5e-qQ-UTV">
+                                                    <rect key="frame" x="133" y="8" width="109" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replying to @engadget" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJy-XG-hC9">
+                                                    <rect key="frame" x="78" y="28" width="240" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Great article!!!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2j-Ng-Cbp">
+                                                    <rect key="frame" x="78" y="48" width="227" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Replying to @engadget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJy-XG-hC9">
-                                                    <rect key="frame" x="97" y="21" width="132" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="0.75502232140000003" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Great article!!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2j-Ng-Cbp">
-                                                    <rect key="frame" x="97" y="43" width="163" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NNU-Ei-AxQ">
-                                                    <rect key="frame" x="16" y="8" width="64" height="59"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NNU-Ei-AxQ">
+                                                    <rect key="frame" x="15" y="8" width="55" height="55"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="55" id="IHv-Se-d74"/>
+                                                        <constraint firstAttribute="width" constant="55" id="aLj-dg-wGN"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPF-tY-1ah">
-                                                    <rect key="frame" x="263" y="5" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="4h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPF-tY-1ah">
+                                                    <rect key="frame" x="286" y="8" width="19" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="LPF-tY-1ah" secondAttribute="trailing" constant="15" id="0rl-Cv-mqa"/>
+                                                <constraint firstItem="J2j-Ng-Cbp" firstAttribute="leading" secondItem="NNU-Ei-AxQ" secondAttribute="trailing" constant="8" id="3CC-79-zby"/>
+                                                <constraint firstItem="V4x-9Z-Hhu" firstAttribute="leading" secondItem="NNU-Ei-AxQ" secondAttribute="trailing" constant="8" id="3EZ-WD-3xq"/>
+                                                <constraint firstItem="LPF-tY-1ah" firstAttribute="baseline" secondItem="V4x-9Z-Hhu" secondAttribute="baseline" id="64k-U9-Q2q"/>
+                                                <constraint firstItem="J2j-Ng-Cbp" firstAttribute="top" secondItem="xJy-XG-hC9" secondAttribute="bottom" constant="2" id="FJs-1P-qdg"/>
+                                                <constraint firstItem="NNU-Ei-AxQ" firstAttribute="leading" secondItem="mFy-NP-0gm" secondAttribute="leading" constant="15" id="Ixq-L9-p5N"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J2j-Ng-Cbp" secondAttribute="bottom" constant="8" id="MJP-q0-ZLC"/>
+                                                <constraint firstItem="V4x-9Z-Hhu" firstAttribute="top" secondItem="mFy-NP-0gm" secondAttribute="top" constant="8" id="PMe-Cs-vxH"/>
+                                                <constraint firstAttribute="trailing" secondItem="J2j-Ng-Cbp" secondAttribute="trailing" constant="15" id="Thk-Qc-Cy7"/>
+                                                <constraint firstItem="NNU-Ei-AxQ" firstAttribute="top" secondItem="mFy-NP-0gm" secondAttribute="top" constant="8" id="TrH-Ji-ORN"/>
+                                                <constraint firstItem="b5e-qQ-UTV" firstAttribute="baseline" secondItem="V4x-9Z-Hhu" secondAttribute="baseline" id="YNb-g9-e44"/>
+                                                <constraint firstAttribute="trailing" secondItem="xJy-XG-hC9" secondAttribute="trailing" constant="2" id="e0t-Ws-7jR"/>
+                                                <constraint firstItem="xJy-XG-hC9" firstAttribute="leading" secondItem="NNU-Ei-AxQ" secondAttribute="trailing" constant="8" id="gj3-sV-App"/>
+                                                <constraint firstItem="xJy-XG-hC9" firstAttribute="top" secondItem="b5e-qQ-UTV" secondAttribute="bottom" constant="2" id="kwI-YD-KKm"/>
+                                                <constraint firstItem="b5e-qQ-UTV" firstAttribute="leading" secondItem="V4x-9Z-Hhu" secondAttribute="trailing" constant="8" id="zXT-aX-GFg"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="b5e-qQ-UTV" id="2Ma-LN-IOd"/>
@@ -572,7 +587,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9f0-eZ-XcN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2945.625" y="137.32394366197184"/>
+            <point key="canvasLocation" x="2946" y="165"/>
         </scene>
         <!--Reply View Controller-->
         <scene sceneID="WHL-uA-NbN">
@@ -646,7 +661,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dzi-0U-Kow" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3705" y="883.09859154929575"/>
+            <point key="canvasLocation" x="3784" y="1032"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wqw-QB-s0i">
@@ -703,7 +718,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Xv-i1-L5f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2946" y="884"/>
+            <point key="canvasLocation" x="2946" y="1033"/>
         </scene>
     </scenes>
     <resources>

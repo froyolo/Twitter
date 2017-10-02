@@ -66,6 +66,22 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         self.textView.delegate = self
         
     }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if let viewText = textView.text {
+            let newLength = viewText.characters.count + text.characters.count - range.length
+            
+            let remainingCount = Tweet.characterLimit - newLength
+            if remainingCount >= 0 {
+                self.remainingCharactersButton.title =  "\(remainingCount)"
+            }
+            
+            return newLength <= Tweet.characterLimit
+        }
+        return true;
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

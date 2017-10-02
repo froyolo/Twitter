@@ -20,7 +20,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         // In v2, he does User.currentUser?.logout()
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

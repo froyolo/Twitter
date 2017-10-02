@@ -12,7 +12,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBOutlet weak var tableView: UITableView!
 
-    var replies: [Tweet]! = [Tweet]()
+    var replies: [Tweet]! = [Tweet]() // This is intended to hold list of replies for the tweet.  For now, holding only the reply right after save.
     var tweet: Tweet!
 
     
@@ -75,12 +75,10 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
             let replyNav = segue.destination as! UINavigationController
             let replyViewController = replyNav.viewControllers.first as! ReplyViewController
             
-            let backItem = UIBarButtonItem()
-            backItem.title = "Back"
             replyViewController.tweet = tweet
             replyViewController.prepare(tweet: tweet, replyHandler: { (tweet) in
                 self.replies.append(tweet)
-                self.tableView.reloadData()
+                self.tableView.reloadSections(IndexSet(integer: 1), with: .none) // Reload just the replies section
             })
         }
     }
