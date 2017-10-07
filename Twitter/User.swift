@@ -18,20 +18,10 @@ class User: NSObject {
     var profileUrl: URL?
     var tagline: String?
     var dictionary: [String: Any]?
-    
-    init(dictionary: [String: Any]) {
-        self.dictionary = dictionary
-        name = dictionary["name"] as? String
-        screenname = "@" + (dictionary["screen_name"] as! String)
-        
-        let profileUrlString = dictionary["profile_image_url_https"] as? String // Can be nil
-        // This syntax will unwrap the optional, and put it in the non-optional.  Will hover over profileUrlString, will see type change
-        if let profileUrlString = profileUrlString {
-            profileUrl = URL(string: profileUrlString)
-        }
-        
-        tagline = dictionary["description"] as? String
-    }
+    var posterUrl: URL?
+    var followersCount: Int?
+    var statusesCount: Int?
+    var followingCount: Int?
     
     static var _currentUser: User? // In v2, he declares this out of class User (var _currentUser: User)
     static let userDidLogoutNotification = "UserDidLogout"
@@ -63,6 +53,29 @@ class User: NSObject {
             }
             defaults.synchronize() // save to disk
         }
+    }
+    
+    
+    init(dictionary: [String: Any]) {
+        self.dictionary = dictionary
+        name = dictionary["name"] as? String
+        screenname = "@" + (dictionary["screen_name"] as! String)
+        
+        let profileUrlString = dictionary["profile_image_url_https"] as? String // Can be nil
+        if let profileUrlString = profileUrlString {
+            profileUrl = URL(string: profileUrlString)
+        }
+        
+        followersCount = dictionary["followers_count"] as? Int
+        statusesCount = dictionary["statuses_count"] as? Int
+        followingCount = dictionary["friends_count"] as? Int
+
+        let posterUrlString = dictionary["profile_banner_url"] as? String // Can be nil
+        if let posterUrlString = posterUrlString {
+            posterUrl = URL(string: posterUrlString)
+        }
+        
+        tagline = dictionary["description"] as? String
     }
     
 }

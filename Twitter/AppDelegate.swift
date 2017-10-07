@@ -19,10 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Run right when app launches
         if User.currentUser != nil {
-            // Go straight into the tweets screen instead of login creen
+            
+            // Hamburger menu
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-            window?.rootViewController = vc
+            let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "HamburgerViewController") as! HamburgerViewController // Is the initial view here
+
+            window?.rootViewController = hamburgerViewController
+            
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            
+            menuViewController.hamburgerViewController = hamburgerViewController
+            hamburgerViewController.menuViewController = menuViewController
+
         }
         
         // Subscribe to logout event

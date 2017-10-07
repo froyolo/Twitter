@@ -71,6 +71,21 @@ class TwitterService: BDBOAuth1SessionManager {
         
     }
     
+    func userTimeline(user: User!, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        let params: [String:Any] = ["screen_name" : user.screenname!]
+        get("1.1/statuses/user_timeline.json", parameters: params, progress: nil,
+            success: { (task: URLSessionDataTask, response: Any?) in
+                
+                let dictionaries = response as! [[String: Any]]
+                let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries) // Can call function cuz it's a class function
+                
+                success(tweets) // Give it array of tweets, and cam run the code have
+                
+        }, failure: { (task:URLSessionDataTask?, error: Error?) in
+            failure((error)!)
+        })
+    }
+    
     func homeTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         var params: [String:Any] = ["count" : 20]
         if let maxId = maxId { // For finding older results

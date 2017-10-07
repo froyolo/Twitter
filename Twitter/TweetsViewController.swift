@@ -78,6 +78,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+    
     // Perform the search.
     fileprivate func getHomeTimelines() {
         // Not getting more data, so we reset to make sure we don't append
@@ -126,13 +130,15 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell") as! TweetCell
+        let cell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
         cell.tweet = tweets[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showDetail", sender: indexPath)
         tableView.deselectRow(at: indexPath, animated:true)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,7 +148,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detailViewController = segue.destination as! TweetDetailViewController
-            var indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+            var indexPath = sender as! IndexPath
             let tweet = tweets[indexPath.row]
             detailViewController.tweet = tweet
         
