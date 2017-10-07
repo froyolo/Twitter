@@ -16,21 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        print("In appdelegate")
         // Run right when app launches
         if User.currentUser != nil {
             
             // Hamburger menu
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "HamburgerViewController") as! HamburgerViewController // Is the initial view here
-
-            window?.rootViewController = hamburgerViewController
-            
             let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
             
             menuViewController.hamburgerViewController = hamburgerViewController
             hamburgerViewController.menuViewController = menuViewController
-
+            window?.rootViewController = hamburgerViewController
+            
         }
         
         // Subscribe to logout event

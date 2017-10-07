@@ -70,9 +70,11 @@ class User: NSObject {
         statusesCount = dictionary["statuses_count"] as? Int
         followingCount = dictionary["friends_count"] as? Int
 
-        let posterUrlString = dictionary["profile_banner_url"] as? String // Can be nil
+        let posterUrlString = dictionary["profile_banner_url"] as? String ?? dictionary["profile_background_image_url_https"] as? String// Can be nil
         if let posterUrlString = posterUrlString {
             posterUrl = URL(string: posterUrlString)
+        } else {
+            
         }
         
         tagline = dictionary["description"] as? String

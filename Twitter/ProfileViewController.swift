@@ -58,19 +58,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             return 0
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return 300
-        case 1:
-            return 150
-        default:
-            return 0
-        }
-    }
-    
-    
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {

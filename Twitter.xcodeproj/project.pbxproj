@@ -25,6 +25,7 @@
 		64B4D5721F871A8C005F84B8 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B4D5711F871A8C005F84B8 /* ProfileCell.swift */; };
 		64B4D5741F8764BF005F84B8 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64B4D5731F8764BF005F84B8 /* TweetCell.xib */; };
 		64B4D5761F8764C4005F84B8 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B4D5751F8764C4005F84B8 /* TweetCell.swift */; };
+		64B4D5781F88B65C005F84B8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B4D5771F88B65C005F84B8 /* Int.swift */; };
 		64BA5FBA1F7E448000C7C005 /* TweetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BA5FB91F7E448000C7C005 /* TweetDetailViewController.swift */; };
 		64BA5FBF1F7F03B300C7C005 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BA5FBE1F7F03B300C7C005 /* Date.swift */; };
 		64C153BA1F805CF600E05CFA /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C153B91F805CF600E05CFA /* ReplyCell.swift */; };
@@ -58,6 +59,7 @@
 		64B4D5711F871A8C005F84B8 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		64B4D5731F8764BF005F84B8 /* TweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetCell.xib; sourceTree = "<group>"; };
 		64B4D5751F8764C4005F84B8 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		64B4D5771F88B65C005F84B8 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		64BA5FB91F7E448000C7C005 /* TweetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDetailViewController.swift; sourceTree = "<group>"; };
 		64BA5FBE1F7F03B300C7C005 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		64C153B91F805CF600E05CFA /* ReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyCell.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				64BA5FBE1F7F03B300C7C005 /* Date.swift */,
+				64B4D5771F88B65C005F84B8 /* Int.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				64C153BA1F805CF600E05CFA /* ReplyCell.swift in Sources */,
 				64B4D5721F871A8C005F84B8 /* ProfileCell.swift in Sources */,
 				64EDF6011F7AD3BE0085AFD0 /* Tweet.swift in Sources */,
+				64B4D5781F88B65C005F84B8 /* Int.swift in Sources */,
 				64C197621F7E2F7C0033A995 /* LoginViewController.swift in Sources */,
 				64B4D5701F86FF96005F84B8 /* HamburgerViewController.swift in Sources */,
 				648EC3C51F7B3F6600B59EF4 /* TweetsViewController.swift in Sources */,

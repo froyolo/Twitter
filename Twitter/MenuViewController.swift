@@ -19,14 +19,19 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     var viewControllers: [UIViewController] = []
     var hamburgerViewController: HamburgerViewController!
     
+    let titles = ["Profile", "Timeline", "Mentions", "Accounts"]
+    let icons = [#imageLiteral(resourceName: "profile"), #imageLiteral(resourceName: "timeline"), #imageLiteral(resourceName: "mentions"), #imageLiteral(resourceName: "accounts")]
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
         
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")        
+        profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
         timelineNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
         mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
         accountsNavigationController = storyboard.instantiateViewController(withIdentifier: "AccountsNavigationController")
@@ -36,8 +41,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         viewControllers.append(timelineNavigationController)
         viewControllers.append(mentionsNavigationController)
         viewControllers.append(accountsNavigationController)
-        
+
         hamburgerViewController.contentViewController = timelineNavigationController
+
         
         // Set zero height table footer to not show cells beyond those asked for
         tableView.tableFooterView = UIView()
@@ -59,8 +65,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuCell
-        let titles = ["Profile", "Timeline", "Mentions", "Accounts"]
+
         cell.menuTitleLabel.text = titles[indexPath.row]
+        cell.menuImage.image = icons[indexPath.row]
         return cell
     }
     

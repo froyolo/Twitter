@@ -22,6 +22,8 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var tweetsNumberLabel: UILabel!
     @IBOutlet weak var tweetsLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     
     var user: User! {
         didSet {
@@ -36,9 +38,9 @@ class ProfileCell: UITableViewCell {
             profileImage.layer.borderColor = UIColor.white.cgColor
             
             descriptionLabel.text = user.tagline
-            followingNumberLabel.text = String(user.followingCount ?? 0)
-            followersNumberLabel.text = String(user.followersCount ?? 0)
-            tweetsNumberLabel.text = String(user.statusesCount ?? 0)
+            followingNumberLabel.text = user.followingCount?.abbreviated
+            followersNumberLabel.text = user.followersCount?.abbreviated
+            tweetsNumberLabel.text = user.statusesCount?.abbreviated
             
             
             
@@ -51,6 +53,27 @@ class ProfileCell: UITableViewCell {
         // Initialization code
         profileImage.layer.cornerRadius = 10
         profileImage.clipsToBounds = true
+        /*
+//        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * 12,
+                                            scrollView.frame.size.height);
+        scrollView.pagingEnabled=YES;
+        scrollView.backgroundColor = [UIColor blackColor];
+        
+        // Generate content for our scroll view using the frame height and width as the reference point
+        
+        int i = 0;
+        while (i<=11) {
+            
+            UIView *views = [[UIView alloc]
+                initWithFrame:CGRectMake(((scrollView.frame.size.width)*i)+20, 10,
+                (scrollView.frame.size.width)-40, scrollView.frame.size.height-20)];
+            views.backgroundColor=[UIColor yellowColor];
+            [views setTag:i];
+            [scrollView addSubview:views];
+            
+            i++;
+        }*/
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
