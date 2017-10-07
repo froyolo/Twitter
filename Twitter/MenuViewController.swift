@@ -26,10 +26,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
+        profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")        
         timelineNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
         mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
         accountsNavigationController = storyboard.instantiateViewController(withIdentifier: "AccountsNavigationController")
+        
         
         viewControllers.append(profileNavigationController)
         viewControllers.append(timelineNavigationController)

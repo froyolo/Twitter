@@ -32,12 +32,16 @@
                         <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-Ir-odm">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-Ir-odm">
                         <rect key="frame" x="15" y="33" width="70" height="70"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="height" constant="70" id="YmJ-Pn-9EQ"/>
                             <constraint firstAttribute="width" constant="70" id="khr-DC-Me8"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="obZ-Sr-K3T" appends="YES" id="JzN-tB-cio"/>
+                        </connections>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Engadget" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfE-Xy-dDF">
                         <rect key="frame" x="93" y="36.5" width="70.5" height="18"/>
@@ -140,6 +144,7 @@
                 <outlet property="tweetTextLabel" destination="X22-vH-jnH" id="Tco-EQ-8TZ"/>
             </connections>
         </tableViewCell>
+        <tapGestureRecognizer id="obZ-Sr-K3T"/>
     </objects>
     <resources>
         <image name="chatbubble" width="25" height="25"/>

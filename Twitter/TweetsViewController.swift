@@ -132,6 +132,11 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
         cell.tweet = tweets[indexPath.row]
+        let userImageTap = UITapGestureRecognizer(target: self, action: #selector(onUserImageTap(_:)))
+
+        userImageTap.delegate = cell
+        cell.profileImage.addGestureRecognizer(userImageTap)
+        cell.profileImage.tag = indexPath.row
         return cell
     }
     
@@ -141,19 +146,36 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
 
+    func onUserImageTap(_ sender:UIPanGestureRecognizer ) {
+        
+        let indexPath = IndexPath(row: sender.view!.tag, section: 0)
+        self.performSegue(withIdentifier: "showProfile", sender: indexPath)
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
  
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "showProfile" {
+            let profileViewController = segue.destination as! ProfileViewController
+            
+            var indexPath = sender as! IndexPath
+            let tweet = tweets[indexPath.row]
+            profileViewController.user = tweet.user
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+        } else if segue.identifier == "showDetail" {
             let detailViewController = segue.destination as! TweetDetailViewController
             var indexPath = sender as! IndexPath
             let tweet = tweets[indexPath.row]
             detailViewController.tweet = tweet
         
             let backItem = UIBarButtonItem()
-            backItem.title = "Home"
+            backItem.title = ""
             navigationItem.backBarButtonItem = backItem
         } else if segue.identifier == "composeNew" {
             let composeNav = segue.destination as! UINavigationController

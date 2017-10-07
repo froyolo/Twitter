@@ -11,6 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    var user: User! = User.currentUser
     var tweets: [Tweet]! = [Tweet]()
     
     
@@ -26,7 +27,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     fileprivate func getUserTimelines() {
-        TwitterService.sharedInstance?.userTimeline(user: User.currentUser, success: { (tweets: [Tweet]) in
+        TwitterService.sharedInstance?.userTimeline(user: user, success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
             
@@ -75,12 +76,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         switch indexPath.section {
         case 0: // Profile Detail
             let profileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
-            profileCell.user = User.currentUser
+            profileCell.user = user
             return profileCell
         case 1: // Tweets
             let tweetCell = Bundle.main.loadNibNamed("TweetCell", owner: self, options: nil)?.first as! TweetCell
             tweetCell.tweet = tweets[indexPath.row]
-            tweetCell.tweet.user = User.currentUser
+            tweetCell.tweet.user = user
             return tweetCell
         default:
             return UITableViewCell()
@@ -103,9 +104,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             detailViewController.tweet = tweet
             
             let backItem = UIBarButtonItem()
-            backItem.title = "Back"
+            backItem.title = ""
             navigationItem.backBarButtonItem = backItem
-        }
+         }
     }
     
     
