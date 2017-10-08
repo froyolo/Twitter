@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell, UIScrollViewDelegate {
+class ProfileCell: UITableViewCell {
 
     
     @IBOutlet weak var posterImage: UIImageView!
@@ -25,6 +25,7 @@ class ProfileCell: UITableViewCell, UIScrollViewDelegate {
     
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollContentView: UIView!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -62,53 +63,19 @@ class ProfileCell: UITableViewCell, UIScrollViewDelegate {
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = UIColor(red:0.11, green:0.63, blue:0.95, alpha:1.0)
-        
-        scrollView.delegate = self
         scrollView.isPagingEnabled = true
+        
+        // Position of views for paging
+        contentView.layoutIfNeeded()
+        infoView.frame.origin.x = 0
+        infoView.frame.origin.y = 0
+        descriptionView.frame.origin.x = scrollView.frame.size.width
+        descriptionView.frame.origin.y = 0
+
         
         profileImage.layer.cornerRadius = 10
         profileImage.clipsToBounds = true
         
-//        scrollView.addSubview(infoView)
-//        scrollView.addSubview(descriptionView)
-        infoView.frame.origin.x = scrollView.frame.size.width
-        infoView.frame.origin.y = 0
-        descriptionView.frame.origin.x = 0
-        descriptionView.frame.origin.y = 0
-        
-//        infoView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-//        descriptionView.frame = CGRect(x: scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        
-        scrollView.contentSize = CGSize(width:scrollView.frame.size.width * 2,height: scrollView.frame.size.height)
-        
-        
-  
-        
-        
-//        self.scrollView.contentSize = CGSize(width:self.scrollView.frame.size.width * 4,height: self.scrollView.frame.size.height)
-        
-        
-        
-        /*
-//        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * 12,
-                                            scrollView.frame.size.height);
-        scrollView.pagingEnabled=YES;
-        scrollView.backgroundColor = [UIColor blackColor];
-        
-        // Generate content for our scroll view using the frame height and width as the reference point
-        
-        int i = 0;
-        while (i<=11) {
-            
-            UIView *views = [[UIView alloc]
-                initWithFrame:CGRectMake(((scrollView.frame.size.width)*i)+20, 10,
-                (scrollView.frame.size.width)-40, scrollView.frame.size.height-20)];
-            views.backgroundColor=[UIColor yellowColor];
-            [views setTag:i];
-            [scrollView addSubview:views];
-            
-            i++;
-        }*/
         
     }
 

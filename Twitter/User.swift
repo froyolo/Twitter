@@ -27,7 +27,7 @@ class User: NSObject {
     
     static var _currentUser: User? // In v2, he declares this out of class User (var _currentUser: User)
     static let userDidLogoutNotification = "UserDidLogout"
-    static var accounts: [User] = [User]()
+    static var accessTokens: [String] = [String]()
     
     class var currentUser: User? {// May not exist
         get {
@@ -44,12 +44,7 @@ class User: NSObject {
         }
         set(user) {
             _currentUser = user
-            if user == nil {
-                accounts = [User]()
-            } else {
-                accounts.append(user!)
-            }
-            
+
             // Will save the user everything do a user.currentuser = <something>
             let defaults = UserDefaults.standard
             if let user = user {

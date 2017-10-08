@@ -110,11 +110,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
-        } else if segue.identifier == "showAccounts" {
+        }
+        
+       /* else if segue.identifier == "showAccounts" {
             let accountsNav = segue.destination as! UINavigationController
             let accountsViewController = accountsNav.viewControllers.first as! AccountsViewController
 
-        }
+        }*/
     }
 
 

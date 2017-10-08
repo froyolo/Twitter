@@ -13,7 +13,7 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     
-    var accounts: [User]! = User.accounts
+    var accounts: [User]! = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +37,15 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func onAddAccountTapped(_ sender: UIBarButtonItem) {
+        TwitterService.sharedInstance?.logout()
+        TwitterService.sharedInstance.login(success: {
+            print("log in successful")
+        }) { (error: Error) in
+                print("Error :\(error.localizedDescription)")
+        }
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
