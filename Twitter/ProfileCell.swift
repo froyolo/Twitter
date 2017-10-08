@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell {
+class ProfileCell: UITableViewCell, UIScrollViewDelegate {
 
     
     @IBOutlet weak var posterImage: UIImageView!
@@ -55,8 +55,22 @@ class ProfileCell: UITableViewCell {
 
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Add in opacity changes as paging happens
+        var percent = 1 - (scrollView.contentOffset.x / scrollView.frame.size.width);
+        percent = percent < 0.2 ? 0.2 : percent
+        posterImage.alpha = percent;
+        
+        // Make sure page control changes
+        let pageIndex = round(scrollView.contentOffset.x/scrollView.frame.width)
+        pageControl.currentPage = Int(pageIndex)
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        scrollView.delegate = self
 
         // Configure page control
         pageControl.numberOfPages = 2
