@@ -29,8 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             window?.rootViewController = hamburgerViewController
             
-        } else {
-            print("In appdelegate: current user is nil")
         }
         
         // Subscribe to logout event

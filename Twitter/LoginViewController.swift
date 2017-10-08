@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func onLoginButton(_ sender: Any) {
         TwitterService.sharedInstance.login(success: {
+            
             // Logged in, segue to the next view controller
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
@@ -31,6 +32,7 @@ class LoginViewController: UIViewController {
             hamburgerViewController.menuViewController = menuViewController
             
             self.present(hamburgerViewController, animated: true, completion: nil)
+            
             
         }) { (error: Error) in
             print("Error :\(error.localizedDescription)")

@@ -26,6 +26,7 @@
 		64B4D5741F8764BF005F84B8 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64B4D5731F8764BF005F84B8 /* TweetCell.xib */; };
 		64B4D5761F8764C4005F84B8 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B4D5751F8764C4005F84B8 /* TweetCell.swift */; };
 		64B4D5781F88B65C005F84B8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B4D5771F88B65C005F84B8 /* Int.swift */; };
+		64B4D57E1F89EE30005F84B8 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B4D57D1F89EE30005F84B8 /* AccountCell.swift */; };
 		64BA5FBA1F7E448000C7C005 /* TweetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BA5FB91F7E448000C7C005 /* TweetDetailViewController.swift */; };
 		64BA5FBF1F7F03B300C7C005 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BA5FBE1F7F03B300C7C005 /* Date.swift */; };
 		64C153BA1F805CF600E05CFA /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C153B91F805CF600E05CFA /* ReplyCell.swift */; };
@@ -60,6 +61,7 @@
 		64B4D5731F8764BF005F84B8 /* TweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetCell.xib; sourceTree = "<group>"; };
 		64B4D5751F8764C4005F84B8 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		64B4D5771F88B65C005F84B8 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		64B4D57D1F89EE30005F84B8 /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		64BA5FB91F7E448000C7C005 /* TweetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDetailViewController.swift; sourceTree = "<group>"; };
 		64BA5FBE1F7F03B300C7C005 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		64C153B91F805CF600E05CFA /* ReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyCell.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				64143B9B1F80B621003A1CCA /* DetailCell.swift */,
 				64B4D5651F86F6C4005F84B8 /* MenuCell.swift */,
 				64B4D5711F871A8C005F84B8 /* ProfileCell.swift */,
+				64B4D57D1F89EE30005F84B8 /* AccountCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				64D9A1B21F81DB0100F80874 /* InfiniteScrollActivityView.swift in Sources */,
 				64B4D5761F8764C4005F84B8 /* TweetCell.swift in Sources */,
 				648EC3C31F7B187A00B59EF4 /* TwitterService.swift in Sources */,
+				64B4D57E1F89EE30005F84B8 /* AccountCell.swift in Sources */,
 				64BA5FBF1F7F03B300C7C005 /* Date.swift in Sources */,
 				649934201F7A1A6700D22A02 /* AppDelegate.swift in Sources */,
 				64143B9C1F80B621003A1CCA /* DetailCell.swift in Sources */,
