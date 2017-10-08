@@ -80,6 +80,7 @@ class ProfileCell: UITableViewCell, UIScrollViewDelegate {
         scrollView.isPagingEnabled = true
         
         // Position of views for paging
+        
         contentView.layoutIfNeeded()
         infoView.frame.origin.x = 0
         infoView.frame.origin.y = 0

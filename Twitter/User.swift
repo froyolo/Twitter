@@ -8,26 +8,25 @@
 
 import UIKit
 
-let currentUserKey = "currentUserData" // For UserDefaults
-let accountsKey = "accountsData"
-
-
 class User: NSObject {
     
     var name: String?
     var screenname: String?
     var profileUrl: URL?
     var tagline: String?
-    var dictionary: [String: Any]?
     var posterUrl: URL?
     var followersCount: Int?
     var statusesCount: Int?
     var followingCount: Int?
+    var dictionary: [String: Any]?
     
+    
+    static let userDidLogoutNotification = "UserDidLogout"
+    static let currentUserKey = "   Data" // For UserDefaults
+    static let accountsKey = "accountsData"
     
     static var _currentUser: User? // In v2, he declares this out of class User (var _currentUser: User)
-    static let userDidLogoutNotification = "UserDidLogout"
-    static var accessTokens: [String] = [String]()
+    static var accounts: [String: User] = [String: User]()
     
     class var currentUser: User? {// May not exist
         get {
@@ -39,25 +38,45 @@ class User: NSObject {
                     let dictionary = try! JSONSerialization.jsonObject(with: userData, options: []) as! [String: Any]
                     _currentUser = User(dictionary: dictionary)
                 }
+                
+                let accountsData = defaults.object(forKey: accountsKey) as? Data
+                if let accountsData = accountsData {
+                    let dictionary = try! JSONSerialization.jsonObject(with: accountsData, options: []) as! [String: [String:Any]]
+                    
+                    for (_, userdata) in dictionary {
+                        let user = User(dictionary: userdata)
+                        accounts[user.screenname!] = user
+                    }
+                }
             }
             return _currentUser
         }
         set(user) {
             _currentUser = user
 
-            // Will save the user everything do a user.currentuser = <something>
             let defaults = UserDefaults.standard
             if let user = user {
-                // Try block - acknowledge it can fail, but let it go.
-                let data = try! JSONSerialization.data(withJSONObject: user.dictionary!, options: [])
-                defaults.set(data, forKey:currentUserKey)
+                let currentUserdata = try! JSONSerialization.data(withJSONObject: user.dictionary!, options: [])
+                defaults.set(currentUserdata, forKey:currentUserKey)
+                accounts[user.screenname!] = user
+                
             } else {
-                //defaults.set(nil, forKey: currentUserKey)
                 defaults.removeObject(forKey: currentUserKey)
             }
+            
+            // Save current list of accounts
+            var accountsDictionary:[String: [String: Any]] = [String: [String: Any]]()
+            for (_, user) in accounts {
+                accountsDictionary[user.screenname!] = user.dictionary
+            }
+            
+            let accountsdata = try! JSONSerialization.data(withJSONObject: accountsDictionary, options: [])
+            defaults.set(accountsdata, forKey:accountsKey)
             defaults.synchronize() // save to disk
         }
     }
+    
+    
     
     
     init(dictionary: [String: Any]) {
@@ -82,6 +101,24 @@ class User: NSObject {
         }
         
         tagline = dictionary["description"] as? String
+    }
+    
+    func delete() {
+        User.accounts.removeValue(forKey: screenname!)
+        if User.currentUser?.screenname == screenname {
+            User.currentUser = nil
+            
+            if User.accounts.count > 0 {
+                User.currentUser = User.accounts.first?.value // Arbitrary pick the first user account to be the default now
+            }
+        }
+        
+        if User.accounts.count == 0 {
+            TwitterService.sharedInstance?.logout()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
+            
+        } 
+        
     }
     
 }

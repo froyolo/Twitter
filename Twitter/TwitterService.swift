@@ -239,9 +239,14 @@ class TwitterService: BDBOAuth1SessionManager {
         }
     }
     
+    
+    func switchUser() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
+    }
 
     func logout () {
         User.currentUser = nil
+        
         deauthorize()
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)

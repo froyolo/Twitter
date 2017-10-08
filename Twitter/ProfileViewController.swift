@@ -30,14 +30,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         // A long pause on the navigation bar will bring up Account view
         let navLongPress = UILongPressGestureRecognizer(target: self, action: #selector(onNavPress(_:)))
         self.navigationController?.navigationBar.addGestureRecognizer(navLongPress)
-
-
-        
-
     }
     
     func onNavPress(_ sender:UILongPressGestureRecognizer) {
-        print("Long press detected")
         self.performSegue(withIdentifier: "showAccounts", sender: nil)
 
     }
