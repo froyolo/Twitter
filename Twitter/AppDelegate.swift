@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        print("In appdelegate")
         // Run right when app launches
         if User.currentUser != nil {
             
@@ -27,8 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             menuViewController.hamburgerViewController = hamburgerViewController
             hamburgerViewController.menuViewController = menuViewController
+            
             window?.rootViewController = hamburgerViewController
             
+        } else {
+            print("In appdelegate: current user is nil")
         }
         
         // Subscribe to logout event

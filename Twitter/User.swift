@@ -23,6 +23,7 @@ class User: NSObject {
     var statusesCount: Int?
     var followingCount: Int?
     
+    
     static var _currentUser: User? // In v2, he declares this out of class User (var _currentUser: User)
     static let userDidLogoutNotification = "UserDidLogout"
     

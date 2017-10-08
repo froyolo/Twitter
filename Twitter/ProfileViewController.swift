@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+
+    
     @IBOutlet weak var tableView: UITableView!
     var user: User! = User.currentUser
     var tweets: [Tweet]! = [Tweet]()
@@ -24,6 +26,20 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 150
+        
+        // A long pause on the navigation bar will bring up Account view
+        let navLongPress = UILongPressGestureRecognizer(target: self, action: #selector(onNavPress(_:)))
+        self.navigationController?.navigationBar.addGestureRecognizer(navLongPress)
+
+
+        
+
+    }
+    
+    func onNavPress(_ sender:UILongPressGestureRecognizer) {
+        print("Long press detected")
+        self.performSegue(withIdentifier: "showAccounts", sender: nil)
+
     }
 
     fileprivate func getUserTimelines() {
@@ -94,37 +110,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
-         }
+        } else if segue.identifier == "showAccounts" {
+            let accountsNav = segue.destination as! UINavigationController
+            let accountsViewController = accountsNav.viewControllers.first as! AccountsViewController
+
+        }
     }
-    
-    
-    
-//    fileprivate func getProfileInfo() {
-//        TwitterService.currentU
-//        TwitterService.sharedInstance?.showUser(success: { (user: User) in
-//            code
-//        }, failure: { (error: Error) in
-//            <#code#>
-//        })
-//        
-//        TwitterService.sharedInstance?.homeTimeline(maxId: maxId, success: { (tweets: [Tweet]) in
-//            self.tweets = tweets
-//            
-//            // Update flag
-//            self.isMoreDataLoading = false
-//            
-//            // Stop the loading indicator
-//            self.loadingMoreView!.stopAnimating()
-//            
-//            self.tableView.reloadData()
-//            
-//        }, failure: { (error: Error) in
-//            print(error.localizedDescription)
-//        })
-//        
-//    }
-    
-    
+
 
     /*
     // MARK: - Navigation

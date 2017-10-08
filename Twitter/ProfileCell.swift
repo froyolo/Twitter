@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell {
+class ProfileCell: UITableViewCell, UIScrollViewDelegate {
 
     
     @IBOutlet weak var posterImage: UIImageView!
@@ -22,9 +22,13 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var tweetsNumberLabel: UILabel!
     @IBOutlet weak var tweetsLabel: UILabel!
+    
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
-    
+
     var user: User! {
         didSet {
             if let poster = user.posterUrl {
@@ -41,18 +45,50 @@ class ProfileCell: UITableViewCell {
             followingNumberLabel.text = user.followingCount?.abbreviated
             followersNumberLabel.text = user.followersCount?.abbreviated
             tweetsNumberLabel.text = user.statusesCount?.abbreviated
-            
-            
-            
         }
     }
-
     
+    @IBAction func onPageChange(_ sender: UIPageControl) {
+        let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
+        scrollView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        // Configure page control
+        pageControl.numberOfPages = 2
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = UIColor.lightGray
+        pageControl.currentPageIndicatorTintColor = UIColor(red:0.11, green:0.63, blue:0.95, alpha:1.0)
+        
+        scrollView.delegate = self
+        scrollView.isPagingEnabled = true
+        
         profileImage.layer.cornerRadius = 10
         profileImage.clipsToBounds = true
+        
+//        scrollView.addSubview(infoView)
+//        scrollView.addSubview(descriptionView)
+        infoView.frame.origin.x = scrollView.frame.size.width
+        infoView.frame.origin.y = 0
+        descriptionView.frame.origin.x = 0
+        descriptionView.frame.origin.y = 0
+        
+//        infoView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
+//        descriptionView.frame = CGRect(x: scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
+        
+        scrollView.contentSize = CGSize(width:scrollView.frame.size.width * 2,height: scrollView.frame.size.height)
+        
+        
+  
+        
+        
+//        self.scrollView.contentSize = CGSize(width:self.scrollView.frame.size.width * 4,height: self.scrollView.frame.size.height)
+        
+        
+        
         /*
 //        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * 12,
                                             scrollView.frame.size.height);
