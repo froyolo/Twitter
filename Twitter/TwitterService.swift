@@ -9,7 +9,6 @@
 import UIKit
 import BDBOAuth1Manager
 
-
 let twitterConsumerKey = "gGr4n5L5aQEUODLs9vIk1TUYV"
 let twitterConsumerSecret = "O5cLsOMmQrP9CZZYB0qTtUzTayZKGjuHveA2ZoXHWpzhJ2Je5z"
 let twitterBaseUrl = URL(string: "https://api.twitter.com")!
@@ -21,16 +20,9 @@ class TwitterService: BDBOAuth1SessionManager {
     var loginSuccess: (() -> ())? // make it an optional
     var loginFailure: ((Error) -> ())?
     
-    func switchUser(success: @escaping () -> (), failure: @escaping (Error)->()) {
-        login(success: {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
-            
-        }) { (error: Error) in
-            print("Error :\(error.localizedDescription)")
-        }
-    }
+
     
-    func login(success: @escaping () -> (), failure: @escaping (Error)->()) {
+    func login(forcedLogin: Bool, success: @escaping () -> (), failure: @escaping (Error)->()) {
         // Fetch request token & redirect to authorization page
         
         loginSuccess = success // Holds login closure until completion
@@ -44,10 +36,14 @@ class TwitterService: BDBOAuth1SessionManager {
                 let requestTokenString = requestToken.token ?? ""
 
                 // Create URL with authorize URL and unwrap it by adding !
-                let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestTokenString)")!
-
+                var authURL:String = "https://api.twitter.com/oauth/authorize?oauth_token=\(requestTokenString)"
+                if forcedLogin {
+                    authURL += "&force_login=true"
+                }
+                let url = URL(string: authURL)
+                
                 // Switches application out of something else.  If is https, it'll open up Safari
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                //UIApplication.shared.openURL(url)
             }
     

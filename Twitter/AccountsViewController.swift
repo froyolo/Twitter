@@ -52,8 +52,8 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func onAddAccountTapped(_ sender: UIBarButtonItem) {
-        
-        TwitterService.sharedInstance.switchUser(success: {
+        TwitterService.sharedInstance.logout()
+        TwitterService.sharedInstance.login(forcedLogin: true, success: {
             // Logged in, segue to the next view controller
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             

@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onLoginButton(_ sender: Any) {
-        TwitterService.sharedInstance.login(success: {
+        TwitterService.sharedInstance.login(forcedLogin: false, success: {
             
             // Logged in, segue to the next view controller
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
