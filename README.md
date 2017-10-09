@@ -1,6 +1,6 @@
 # Project 4 - *Twitter Redux*
 
-Time spent: **16** hours spent in total
+Time spent: **17** hours spent in total
 
 ## User Stories
 
@@ -31,7 +31,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [x] Shorten numbers for display (ex. 1,800,000 followers gets displayed as 1.8M)
+- [x] Shorten numbers for display (ex. "1,800,000" followers gets displayed as "1.8M")
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -43,7 +43,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/vOsb5nm.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
