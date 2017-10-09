@@ -213,6 +213,7 @@
                                                 </pageControl>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uTi-6p-VRf">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="T1J-SC-G8R"/>
                                                     </constraints>
@@ -401,6 +402,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="f0w-oz-UaT" secondAttribute="trailing" id="1mj-fs-Lr6"/>
                             <constraint firstItem="A4g-0Q-MpB" firstAttribute="top" secondItem="f0w-oz-UaT" secondAttribute="bottom" id="815-yO-juC"/>
@@ -410,7 +412,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="3Zd-9J-qhg"/>
                     <connections>
-                        <outlet property="tableView" destination="f0w-oz-UaT" id="aOf-Bc-vlC"/>
+                        <outlet property="tableView" destination="f0w-oz-UaT" id="sNH-dn-CAS"/>
                         <segue destination="ac4-EC-Sbi" kind="show" identifier="showDetail" id="gnH-Yb-Wc8"/>
                         <segue destination="hXi-bh-L4o" kind="presentation" identifier="showAccounts" id="8h0-aN-HhU"/>
                     </connections>
@@ -424,7 +426,7 @@
             </objects>
             <point key="canvasLocation" x="1921.7391304347827" y="-594.29347826086962"/>
         </scene>
-        <!--Mentions View Controller-->
+        <!--Mentions-->
         <scene sceneID="ZIU-FS-Hrr">
             <objects>
                 <viewController id="fSm-rh-eqI" customClass="MentionsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
@@ -435,9 +437,24 @@
                     <view key="view" contentMode="scaleToFill" id="3cK-6n-QqT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lCS-6A-wvI">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lCS-6A-wvI" firstAttribute="leading" secondItem="3cK-6n-QqT" secondAttribute="leading" id="0Yc-0z-OIh"/>
+                            <constraint firstItem="lCS-6A-wvI" firstAttribute="top" secondItem="N57-rq-o5u" secondAttribute="bottom" id="foI-AD-J3J"/>
+                            <constraint firstAttribute="trailing" secondItem="lCS-6A-wvI" secondAttribute="trailing" id="vVu-xT-Mh6"/>
+                            <constraint firstItem="WY0-3X-VoJ" firstAttribute="top" secondItem="lCS-6A-wvI" secondAttribute="bottom" id="y5l-u1-vSg"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="PCK-CM-AGl"/>
+                    <navigationItem key="navigationItem" title="Mentions" id="PCK-CM-AGl"/>
+                    <connections>
+                        <outlet property="tableView" destination="lCS-6A-wvI" id="Ndc-ip-w2b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VQf-YR-hpC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1158,7 +1175,7 @@
         <image name="unretweet" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Zbg-qX-fDm"/>
+        <segue reference="Ihh-Wr-tne"/>
         <segue reference="gnH-Yb-Wc8"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -91,6 +91,12 @@ class ProfileCell: UITableViewCell, UIScrollViewDelegate {
         profileImage.layer.cornerRadius = 10
         profileImage.clipsToBounds = true
         
+        /*
+        let blur:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let effectView:UIVisualEffectView = UIVisualEffectView (effect: blur)
+        effectView.frame = scrollView.bounds
+        addSubview(effectView)*/
+
         
     }
 

@@ -1,6 +1,6 @@
 # Project 4 - *Twitter Redux*
 
-Time spent: **X** hours spent in total
+Time spent: **16** hours spent in total
 
 ## User Stories
 
@@ -22,21 +22,21 @@ The following **optional** features are implemented:
    - [x] Implement the paging view for the user description.
    - [x] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
    - [ ] Pulling down the profile page should blur and resize the header image.
-- [ ] Account switching
+- [x] Account switching
    - [x] Long press on tab bar to bring up Account view with animation
-   - [ ] Tap account to switch to
+   - [x] Tap account to switch to
    - [x] Include a plus button to Add an Account
-   - [ ] Swipe to delete an account
+   - [x] Swipe to delete an account
 
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Shorten numbers for display (ex. 1,800,000 followers gets displayed as 1.8M)
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-  1.
-  2.
+  1. Ways to better layout components of a view
+  2. Optimal ways to deal with sessions
 
 
 ## Video Walkthrough
@@ -50,6 +50,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+Problems with auto-layout and paging.  Also with session management and best way to handle multiple sessions.
 
 ## License
 

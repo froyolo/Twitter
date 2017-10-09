@@ -35,10 +35,7 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
             let user = User.accounts[accountIndices[indexPath.row]]
             if let user = user {
                 user.delete()
-
                 accountIndices.remove(at: indexPath.row)
-
-                // delete the table view row
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
@@ -55,11 +52,8 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func onAddAccountTapped(_ sender: UIBarButtonItem) {
-
-        TwitterService.sharedInstance?.switchUser()
         
-        TwitterService.sharedInstance.login(success: {
-            
+        TwitterService.sharedInstance.switchUser(success: {
             // Logged in, segue to the next view controller
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
@@ -87,10 +81,7 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
             self.tableView.reloadData()
         }
-    
-        
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -106,16 +97,5 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
         accountCell.user = User.accounts[accountIndices[indexPath.row]]
         return accountCell
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

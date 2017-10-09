@@ -47,8 +47,6 @@ class HamburgerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,8 +66,6 @@ class HamburgerViewController: UIViewController {
             UIView.animate(withDuration: 0.3, animations: {
                 if velocity.x > 0 { // Opening
                     self.leftMarginConstraint.constant = self.view.frame.size.width - 120 // how much peek out
-//                    self.contentViewController.view.isUserInteractionEnabled = false // Disable touch
-//                    self.contentViewController.view.backgroundColor = UIColor(white:1, alpha: 0.5)
                 } else {
                     self.leftMarginConstraint.constant = 0
                     
@@ -79,14 +75,5 @@ class HamburgerViewController: UIViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

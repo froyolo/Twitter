@@ -11,7 +11,6 @@ import UIKit
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
 
-    
     @IBOutlet weak var tableView: UITableView!
     var user: User! = User.currentUser
     var tweets: [Tweet]! = [Tweet]()
@@ -31,7 +30,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         let navLongPress = UILongPressGestureRecognizer(target: self, action: #selector(onNavPress(_:)))
         self.navigationController?.navigationBar.addGestureRecognizer(navLongPress)
     }
-    
+
+
     func onNavPress(_ sender:UILongPressGestureRecognizer) {
         self.performSegue(withIdentifier: "showAccounts", sender: nil)
 
@@ -86,8 +86,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             return UITableViewCell()
         }
     }
-
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "showDetail", sender: indexPath)
@@ -106,23 +104,5 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
         }
-        
-       /* else if segue.identifier == "showAccounts" {
-            let accountsNav = segue.destination as! UINavigationController
-            let accountsViewController = accountsNav.viewControllers.first as! AccountsViewController
-
-        }*/
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

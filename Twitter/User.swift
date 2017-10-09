@@ -22,7 +22,7 @@ class User: NSObject {
     
     
     static let userDidLogoutNotification = "UserDidLogout"
-    static let currentUserKey = "   Data" // For UserDefaults
+    static let currentUserKey = "currentUserData" // For UserDefaults
     static let accountsKey = "accountsData"
     
     static var _currentUser: User? // In v2, he declares this out of class User (var _currentUser: User)
