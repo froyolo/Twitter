@@ -92,7 +92,9 @@ class TwitterService: BDBOAuth1SessionManager {
     
     
     func userTimeline(user: User!, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        let params: [String:Any] = ["screen_name" : user.screenname!]
+        var params: [String: Any] = [String: Any]()
+        params["screen_name"] = (user != nil) ? user.screenname : User.currentUser!.screenname
+        
         get("1.1/statuses/user_timeline.json", parameters: params, progress: nil,
             success: { (task: URLSessionDataTask, response: Any?) in
                 
